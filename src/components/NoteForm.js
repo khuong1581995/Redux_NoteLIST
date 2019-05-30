@@ -6,15 +6,14 @@ import { actAddData } from '../actions/index';
 
 class NoteForm extends React.Component {
     state = {
+
         noteTitle: '',
         noteContent: ''
     }
     isChange(event) {
-        const target = event.target;
-        const name = target.name;
-        const value = target.value;
+
         this.setState({
-            [name]: value
+            [event.target.name]: event.target.value
         })
 
     }
@@ -22,7 +21,8 @@ class NoteForm extends React.Component {
         var item = {};
         item.noteTitle = title;
         item.noteContent = content
-        // this.props.actAddData(item);
+
+        // console.log(item);
 
         this.props.actAddData(item)
     }
@@ -41,7 +41,7 @@ class NoteForm extends React.Component {
                     <small id="helpId" className="text-muted"><p>Điền nội dung vào đây</p></small>
                     <textarea onChange={(event) => this.isChange(event)} value={this.state.noteContent} type="text" name="noteContent" className="form-control" placeholder="Nội dung note" aria-describedby="helpId" ></textarea>
                 </form>
-                <button type="reset" onClick={() => this.addData(this.state.noteTitle, this.state.noteContent)} className="btn btn-success btn-block ">Lưu</button>
+                <button type="reset" onClick={() => this.addData(this.state.noteTitle, this.state.noteContent)} className="btn btn-info btn-block ">Lưu</button>
             </div>
 
         );
@@ -54,8 +54,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        actAddData: (item) => {
-            dispatch({ actAddData, item })
+        actAddData: (text) => {
+            dispatch(actAddData(text))
         }
     }
 }

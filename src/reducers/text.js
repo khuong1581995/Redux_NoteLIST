@@ -1,22 +1,27 @@
 
-var initialState = {
-    testConnect: ' test ket noi'
-}
+
+var data = JSON.parse(localStorage.getItem('text'))
+var initialState = data ? data : []
 
 var text = (state = initialState, action) => {
 
     switch (action.type) {
         case 'ADD_DATA':
-            var text = {
-
-                title: action.text.title,
-                content: action.text.content
+            let note = {
+                noteTitle: action.text.noteTitle,
+                noteContent: action.text.noteContent
             }
+            const newState = [...state, note]
+            // console.log(action)
+            localStorage.setItem('text', JSON.stringify(newState))
+            return newState
+        case 'EDIT_DATA':
+            // console.log(action);
 
-
-            return state
-
-        default: return state;
+            localStorage.setItem('text', JSON.stringify(state));
+            return [...state];
+        default:
+            return state;
     }
 
 };
